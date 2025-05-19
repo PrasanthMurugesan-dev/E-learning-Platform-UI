@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Learning Platform</title>
+  <link rel="stylesheet" href="E-learning.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-graduation-cap"></i>
+      <h1>E-Learning Platform</h1>
+    </div>
+    <nav>
+      <a href="#" onclick="showPage('home')" data-page="home" class="active">Home</a>
+      <a href="#" onclick="showPage('courses')" data-page="courses">Courses</a>
+      <a href="#" onclick="showPage('profile')" data-page="profile">My Profile</a>
+      <a href="#" onclick="showPage('login')" data-page="login">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Home Section -->
+    <section id="home">
+      <div class="hero">
+        <div class="hero-text">
+          <h2>Learn New Skills, Advance Your Career</h2>
+          <p>Access premium courses taught by industry experts and take your skills to the next level.</p>
+          <button class="cta-button" onclick="showPage('courses')">Explore Courses <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+      
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>Interactive Learning</h3>
+          <p>Engage with content through hands-on exercises and real-world projects that reinforce concepts.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-medal"></i>
+          </div>
+          <h3>Earn Certificates</h3>
+          <p>Receive certificates upon course completion to showcase your skills to employers.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Learn at Your Pace</h3>
+          <p>Access courses anytime, anywhere, and study at your own pace with lifetime access.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Course Listing Section -->
+    <section id="courses" class="hidden">
+      <h2>Explore Our Courses</h2>
+      <p>Find the perfect course to enhance your skills and advance your career.</p>
+      
+      <div class="filter-controls">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search-input" placeholder="Search courses...">
+        </div>
+        
+        <div class="filter-dropdown">
+          <select id="category-filter">
+            <!-- Options will be populated dynamically -->
+          </select>
+        </div>
+      </div>
+      
+      <div id="course-list">
+        <!-- Course cards will be populated dynamically -->
+      </div>
+    </section>
+
+    <!-- Course Detail Section -->
+    <section id="course-detail" class="hidden">
+      <div class="course-header animate-in">
+        <div>
+          <h2 id="course-title">Course Title</h2>
+          <div class="course-meta">
+            <div class="course-meta-item">
+              <i class="fas fa-tag"></i>
+              <span id="course-category">Category</span>
+            </div>
+            <div class="course-meta-item">
+              <i class="fas fa-clock"></i>
+              <span id="course-duration">Duration</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="course-actions">
+          <button class="back-button" onclick="showPage('courses')">
+            <i class="fas fa-arrow-left"></i> Back to Courses
+          </button>
+        </div>
+      </div>
+      
+      <div class="animate-in">
+        <iframe id="course-video" allowfullscreen></iframe>
+      </div>
+      
+      <div class="course-content-grid">
+        <div class="main-content">
+          <div class="progress-section animate-in">
+            <div class="progress-header">
+              <h3>Your Progress</h3>
+              <span id="progress-percent">0%</span>
+            </div>
+            
+            <progress id="progress-bar" value="0" max="100"></progress>
+            
+            <div class="progress-actions">
+              <button id="simulate-progress" class="btn btn-secondary">
+                <i class="fas fa-play"></i> Simulate Progress
+              </button>
+              <button onclick="markAsCompleted()" class="btn btn-success">
+                <i class="fas fa-check"></i> Mark as Completed
+              </button>
+            </div>
+          </div>
+          
+          <div class="notes-section animate-in">
+            <div class="notes-header">
+              <h3>Your Notes</h3>
+              <button id="toggle-notes" class="btn btn-secondary">
+                <i class="fas fa-chevron-down"></i> Expand
+              </button>
+            </div>
+            
+            <textarea id="course-notes" placeholder="Write your notes here..."></textarea>
+            
+            <button id="save-notes" class="btn btn-primary">
+              <i class="fas fa-save"></i> Save Notes
+            </button>
+            
+            <div id="notes-saved">Notes saved successfully!</div>
+          </div>
+        </div>
+        
+        <div class="sidebar">
+          <div class="rating-section animate-in">
+            <h3>Rate This Course</h3>
+            <div class="stars">
+              <span class="star"><i class="fas fa-star"></i></span>
+              <span class="star"><i class="fas fa-star"></i></span>
+              <span class="star"><i class="fas fa-star"></i></span>
+              <span class="star"><i class="fas fa-star"></i></span>
+              <span class="star"><i class="fas fa-star"></i></span>
+            </div>
+            
+            <div id="rating-thanks">Thanks for your rating!</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Completion effects -->
+      <div id="completion-confetti"></div>
+      <div id="completion-message">
+        <h3>Congratulations!</h3>
+        <p>You've successfully completed this course.</p>
+      </div>
+    </section>
+    
+    <!-- Profile Section (Placeholder) -->
+    <section id="profile" class="hidden">
+      <h2>My Profile</h2>
+      <p>This is where you'll see your course progress and achievements.</p>
+      
+      <div class="profile-content">
+        <p>Profile features coming soon!</p>
+      </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login" class="hidden">
+      <div class="auth-container">
+        <div class="auth-card">
+          <div class="auth-header">
+            <h2>Login to Your Account</h2>
+            <p>Access your courses and track your progress</p>
+          </div>
+          
+          <form id="login-form" class="auth-form">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" placeholder="Enter your email" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="Enter your password" required>
+              </div>
+            </div>
+            
+            <div class="form-group remember-forgot">
+              <div class="remember-me">
+                <input type="checkbox" id="remember">
+                <label for="remember">Remember me</label>
+              </div>
+              <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+            
+            <button type="submit" class="auth-btn">Login</button>
+          </form>
+          
+          <div class="auth-divider">
+            <span>or</span>
+          </div>
+          
+          <div class="social-login">
+            <button class="social-btn google">
+              <i class="fab fa-google"></i>
+              Continue with Google
+            </button>
+            <button class="social-btn facebook">
+              <i class="fab fa-facebook-f"></i>
+              Continue with Facebook
+            </button>
+          </div>
+          
+          <div class="auth-footer">
+            <p>Don't have an account? <a href="#" id="show-register">Sign Up</a></p>
+          </div>
+        </div>
+        
+        <div class="auth-card hidden" id="register-card">
+          <div class="auth-header">
+            <h2>Create an Account</h2>
+            <p>Join our learning community today</p>
+          </div>
+          
+          <form id="register-form" class="auth-form">
+            <div class="form-group">
+              <label for="reg-name">Full Name</label>
+              <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="reg-name" placeholder="Enter your full name" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="reg-email">Email Address</label>
+              <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="reg-email" placeholder="Enter your email" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="reg-password">Password</label>
+              <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="reg-password" placeholder="Create a password" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="reg-confirm">Confirm Password</label>
+              <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="reg-confirm" placeholder="Confirm your password" required>
+              </div>
+            </div>
+            
+            <div class="form-group terms">
+              <input type="checkbox" id="terms" required>
+              <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+            </div>
+            
+            <button type="submit" class="auth-btn">Sign Up</button>
+          </form>
+          
+          <div class="auth-footer">
+            <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Prasanth 2025. All rights reserved.</p>
+    
+    <div class="footer-links">
+      <a href="#">About Us</a>
+      <a href="#">Contact</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+    
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </footer>
+
+  <script src="E-learning.js"></script>
+</body>
+</html>
